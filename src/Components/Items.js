@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import { Products } from "./Products";
 
 
-const Items = ({title,description,price,img,quantity}) => {
-    
+
+const Items = ({ title, description, price, img, quantity, removeItem, id ,increment,decrement}) => {
+
     return (
         <>
             <div className="cart-items-container">
@@ -19,9 +20,9 @@ const Items = ({title,description,price,img,quantity}) => {
                 </div>
 
                 <div className="add-minus-quantity">
-                    <i className="fa-solid fa-minus"></i>
-                    <input type="text" placeholder="2"></input>
-                    <i className="fa-solid fa-plus"></i>
+                    <i className="fa-solid fa-minus" onClick={()=>decrement(id)}></i>
+                    <input type="text" placeholder={quantity}></input>
+                    <i className="fa-solid fa-plus" onClick={()=>increment(id)}></i>
                 </div>
 
                 <div className="price">
@@ -29,9 +30,9 @@ const Items = ({title,description,price,img,quantity}) => {
                 </div>
 
                 <div className="remove-item">
-                    <i className="fa-solid fa-trash-alt"></i>
-
+                    <i className="fa-solid fa-trash-alt" onClick={() => removeItem(id)}></i>
                 </div>
+
             </div>
         </>
     )

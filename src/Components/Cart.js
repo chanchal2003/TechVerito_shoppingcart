@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 // import "./cart.css"
 import "./cartnew.css"
 import Scrollbars from "react-custom-scrollbars-2";
@@ -8,6 +8,39 @@ import { useState } from "react";
 
 const Cart = () => {
     const [item,setItem] = useState(Products)
+
+    const removeItem = (itemId) => {
+        const updatedCart = item.filter(item => item.id !== itemId);
+        setItem(updatedCart);
+      };
+
+      const increment = (itemId) => {
+        const updatedCart = item.map((curItem)=>{
+            if(curItem.id===itemId){
+                return {...curItem,quantity : curItem.quantity+1}
+            }
+            else{
+                return curItem;
+            }
+        })
+        setItem(updatedCart);
+    }
+
+    const decrement = (itemId) => {
+        const updatedCart = item.map((curItem)=>{
+            if(curItem.id===itemId){
+                return {...curItem,quantity : curItem.quantity-1}
+            }
+            else{
+                return curItem;
+            }
+        }).filter((curItem)=>{
+            return curItem.quantity!==0
+        })
+        setItem(updatedCart)
+    }
+
+    
     return (
         <>
             <header>
@@ -25,7 +58,7 @@ const Cart = () => {
             <section className="main-cart-section">
                 <h1>Shopping Cart</h1>
                 <p className="total-items">
-                    you have<span className="total-items-count">4</span>items
+                    you have<span className="total-items-count"> 4 </span>items
                     in shopping cart
                 </p>
             {/* <Scrollbars></Scrollbars> */}
@@ -35,8 +68,12 @@ const Cart = () => {
                     {
                         item.map((curItem)=>{
                             return <Items
-                            key={curItem.id} {...curItem}
-                            ></Items>
+                            key={curItem.id}
+                            id={curItem.id}
+                            {...curItem}
+                            removeItem={removeItem}
+                            increment={increment}
+                            decrement={decrement}></Items>
                         })
                     }
                     {/* </Scrollbars> */}
