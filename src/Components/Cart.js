@@ -16,11 +16,6 @@ const Cart = () => {
     setTotalCount(updatedCart.length);
   };
 
-  const addItem = (newItem) => {
-    const updatedCart = [...item, newItem];
-    setItem(updatedCart);
-    setTotalCount(updatedCart.length);
-  };
 
   const clearCart = () => {
     setItem([]);
